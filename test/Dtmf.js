@@ -17,6 +17,17 @@ describe('Dtmf', function() {
 		setTimeout(() => {
 			dtmf.stop();
 			done();
-		},200);
+		}, 200);
+	});
+
+	it('should stop previous DTMF before starting a new one', (done) => {
+		dtmf.playDtmf('2');
+		setTimeout(() => {
+			dtmf.playDtmf('3');
+		}, 100);
+		setTimeout(() => {
+			dtmf.stop();
+			done();
+		}, 200);
 	});
 });
