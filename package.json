@@ -26,5 +26,8 @@
     "karma-mocha-reporter": "^2.0.3",
     "mocha": "^2.5.3",
     "watchify": "^3.7.0"
+  },
+  "browserify": {
+    "transform": [["babelify", { "presets": ["es2015"] }]]
   }
 }
