@@ -19,5 +19,4 @@ setTimeout(() => {
 
 *   Improve tests.
 *   Add documentation.
-*   Add autoconversion of numbers to strings.
 *   Add fallback using a recorded sound (needed to support IE>=9).
