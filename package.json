@@ -1,6 +1,6 @@
 {
   "name": "play-dtmf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple library to play DTMF tones using Web Audio API",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,15 @@
     "watchify": "^3.7.0"
   },
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015"] }]]
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   }
 }
