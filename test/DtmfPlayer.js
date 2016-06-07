@@ -13,7 +13,7 @@ describe('DtmfPlayer', function() {
 	});
 
 	it('should play a DTMF during 200ms', (done) => {
-		dtmfPlayer.playDtmf('1');
+		dtmfPlayer.play('1');
 		setTimeout(() => {
 			dtmfPlayer.stop();
 			done();
@@ -21,9 +21,9 @@ describe('DtmfPlayer', function() {
 	});
 
 	it('should stop previous DTMF before starting a new one', (done) => {
-		dtmfPlayer.playDtmf('2');
+		dtmfPlayer.play('2');
 		setTimeout(() => {
-			dtmfPlayer.playDtmf('3');
+			dtmfPlayer.play('3');
 		}, 100);
 		setTimeout(() => {
 			dtmfPlayer.stop();

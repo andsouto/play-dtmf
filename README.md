@@ -6,12 +6,12 @@ It should work in any browser supporting [Web Audio API](http://caniuse.com/#fea
 ## Usage
 
 ```javascript
-import {Dtmf} from 'play-dtmf';
-let dtmf = new Dtmf();
-dtmf.play('1');
+import {DtmfPlayer} from 'play-dtmf';
+let dtmfPlayer = new DtmfPlayer();
+dtmfPlayer.play('1');
 setTimeout(() => {
-  dtmf.stop();
-  dtmf.close();
+  dtmfPlayer.stop();
+  dtmfPlayer.close();
 });
 ```
 
