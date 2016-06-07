@@ -2,7 +2,7 @@
   "name": "play-dtmf",
   "version": "0.0.3",
   "description": "A simple library to play DTMF tones using Web Audio API",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "gulp test"
   },

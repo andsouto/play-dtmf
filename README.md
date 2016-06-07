@@ -19,4 +19,3 @@ setTimeout(() => {
 
 *   Improve tests.
 *   Add documentation.
-*   Add fallback using a recorded sound (needed to support IE>=9).
