@@ -3,25 +3,14 @@
 module.exports = function (config) {
 	config.set({
 		basePath: '',
-		frameworks: ['browserify', 'mocha', 'chai'],
-		files: [
-			'test/**/*.js',
-		],
-		exclude: [],
+		frameworks: ['mocha', 'chai', 'webpack'],
+		files: ['test/**/*.js'],
 		preprocessors: {
-			'test/**/*.js': ['browserify'],
+			'test/**/*.js': ['webpack'],
 		},
-		browserify: {
-			extensions: ['.js'],
-			transform: [
-				['babelify', {
-					presets: ['es2015'],
-					ignore: /vendor/,
-				}],
-			],
-			watch: true,
-			debug: true,
+		webpack: {
 		},
+		exclude: [],
 		reporters: ['mocha'],
 		port: 9876,
 		colors: true,

@@ -4,7 +4,7 @@
   "description": "A simple library to play DTMF tones using Web Audio API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "karma start karma.conf.js"
   },
   "keywords": [
     "dtmf",
@@ -13,30 +13,15 @@
   "author": "Andrés Souto Vidal",
   "license": "ISC",
   "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "babelify": "^7.3.0",
-    "chai": "^3.5.0",
-    "eslint": "^2.11.1",
-    "gulp": "^3.9.1",
-    "karma": "^0.13.22",
-    "karma-browserify": "^5.0.5",
+    "chai": "^4.3.6",
+    "eslint": "^8.13.0",
+    "karma": "^6.3.18",
     "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-mocha": "^1.0.1",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.0.3",
-    "mocha": "^2.5.3",
-    "watchify": "^3.7.0"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
+    "karma-webpack": "^5.0.0",
+    "mocha": "^9.2.2",
+    "webpack": "^5.72.0"
   }
 }
