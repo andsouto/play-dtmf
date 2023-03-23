@@ -10,7 +10,7 @@
     "dtmf",
     "audio"
   ],
-  "author": "Andrés Souto Vidal",
+  "author": "Andrés Souto",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.3.6",
