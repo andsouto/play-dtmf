@@ -1,12 +1,10 @@
-'use strict';
-
-module.exports = function (config) {
+module.exports = function(config) {
 	config.set({
 		basePath: '',
 		frameworks: ['mocha', 'chai', 'webpack'],
-		files: ['test/**/*.js'],
+		files: ['lib/**/*.spec.js'],
 		preprocessors: {
-			'test/**/*.js': ['webpack'],
+			'lib/**/*.spec.js': ['webpack'],
 		},
 		webpack: {
 		},
@@ -17,7 +15,6 @@ module.exports = function (config) {
 		logLevel: config.LOG_INFO,
 		autoWatch: true,
 		browsers: ['Chrome'],
-		//browsers: ['Firefox'],
 		browserNoActivityTimeout: 30000,
 		singleRun: false,
 

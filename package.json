@@ -4,7 +4,8 @@
   "description": "A simple library to play DTMF tones using Web Audio API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "lint": "eslint lib karma.conf.cjs",
+    "test": "karma start karma.conf.cjs"
   },
   "keywords": [
     "dtmf",
@@ -12,6 +13,7 @@
   ],
   "author": "Andrés Souto",
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
     "chai": "^4.3.6",
     "eslint": "^8.13.0",
