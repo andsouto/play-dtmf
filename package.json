@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint lib karma.conf.cjs",
+    "prepare": "tsc",
     "test": "karma start karma.conf.cjs"
   },
   "keywords": [
