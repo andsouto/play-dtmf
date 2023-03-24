@@ -15,7 +15,8 @@
   "license": "ISC",
   "type": "module",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "devDependencies": {
     "@types/chai": "^4.3.4",
