@@ -1,0 +1,13 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"declaration": true,
+		"types": ["chai", "mocha"],
+		"module": "ESNext",
+		"outDir": "lib",
+		"sourceMap": true,
+		"strict": true,
+		"target": "ES2022"
+	},
+	"include": ["src/**/*.ts"]
+}

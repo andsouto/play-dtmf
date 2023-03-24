@@ -2,11 +2,26 @@ module.exports = function(config) {
 	config.set({
 		basePath: '',
 		frameworks: ['mocha', 'chai', 'webpack'],
-		files: ['lib/**/*.spec.js'],
+		files: ['src/DtmfPlayer.spec.ts'],
 		preprocessors: {
-			'lib/**/*.spec.js': ['webpack'],
+			'src/DtmfPlayer.spec.ts': ['webpack'],
 		},
 		webpack: {
+			devtool: 'inline-source-map',
+			mode: 'development',
+			module: {
+				rules: [{
+					test: /\.ts$/,
+					exclude: /(node_modules)/,
+					use: 'ts-loader',
+				}],
+			},
+			resolve: {
+				extensions: ['.js', '.ts'],
+				extensionAlias: {
+					'.js': ['.ts', '.js'],
+				}
+			},
 		},
 		exclude: [],
 		reporters: ['mocha'],
