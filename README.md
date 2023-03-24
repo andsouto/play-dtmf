@@ -7,12 +7,10 @@ It should work in any browser supporting [Web Audio API](http://caniuse.com/#fea
 
 ```javascript
 import {DtmfPlayer} from 'play-dtmf';
-let dtmfPlayer = new DtmfPlayer();
-dtmfPlayer.play('1');
-setTimeout(() => {
-  dtmfPlayer.stop();
-  dtmfPlayer.close();
-});
+const audioContext = new AudioContext();
+const dtmfPlayer = new DtmfPlayer(audioContext);
+const tone = dtmfPlayer.play('1');
+tone.stop(1000)
 ```
 
 ## TODO list

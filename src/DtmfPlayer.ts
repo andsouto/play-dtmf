@@ -29,29 +29,31 @@ export class DtmfPlayer {
 	}
 
 	private playTone(freq1: number, freq2: number): DtmfTone {
-		const gainNode = this.audioContext.createGain();
+		const audioContext = this.audioContext;
+		const gainNode = audioContext.createGain();
 		gainNode.gain.value = .1;
 
-		const oscillator1 = this.audioContext.createOscillator();
+		const oscillator1 = audioContext.createOscillator();
 		oscillator1.type = 'sine';
 		oscillator1.frequency.value = freq1;
 		oscillator1.connect(gainNode);
 
-		const oscillator2 = this.audioContext.createOscillator();
+		const oscillator2 = audioContext.createOscillator();
 		oscillator2.type = 'sine';
 		oscillator2.frequency.value = freq2;
 		oscillator2.connect(gainNode);
 
-		gainNode.connect(this.audioContext.destination);
+		gainNode.connect(audioContext.destination);
 
 		oscillator1.start();
 		oscillator2.start();
 
+
 		return {
 			stop(when = 0): void {
 				oscillator2.onended = () => gainNode.disconnect();
-				oscillator1.stop(when);
-				oscillator2.stop(when);
+				oscillator1.stop(audioContext.currentTime + when);
+				oscillator2.stop(audioContext.currentTime + when);
 			}
 		}
 	}
