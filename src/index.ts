@@ -1,1 +1,1 @@
-export {DtmfPlayer} from './DtmfPlayer.js';
+export * from './PhoneTonePlayer.js';

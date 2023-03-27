@@ -1,16 +1,16 @@
 import {expect} from 'chai';
 
-import {DtmfPlayer} from './DtmfPlayer.js';
+import {PhoneTonePlayer} from './PhoneTonePlayer.js';
 
 
 describe('DtmfPlayer', function() {
-	let dtmfPlayer: DtmfPlayer;
+	let phoneTonePlayer: PhoneTonePlayer;
 	let audioContext: AudioContext;
 
 	beforeEach(() => {
 		audioContext = new AudioContext();
-		dtmfPlayer = new DtmfPlayer(audioContext);
-		expect(dtmfPlayer).to.be.instanceof(DtmfPlayer);
+		phoneTonePlayer = new PhoneTonePlayer(audioContext);
+		expect(phoneTonePlayer).to.be.instanceof(PhoneTonePlayer);
 	});
 
 	afterEach(() => {
@@ -18,7 +18,7 @@ describe('DtmfPlayer', function() {
 	});
 
 	it('should play a DTMF during 200ms', (done) => {
-		const {stop} = dtmfPlayer.play('1');
+		const {stop} = phoneTonePlayer.playDtmf('1');
 		setTimeout(() => {
 			stop();
 			done();
@@ -26,8 +26,8 @@ describe('DtmfPlayer', function() {
 	});
 
 	it('should play two DTMF tones simultaneously', (done) => {
-		const tone1 = dtmfPlayer.play('2');
-		const tone2 = dtmfPlayer.play('3');
+		const tone1 = phoneTonePlayer.playDtmf('2');
+		const tone2 = phoneTonePlayer.playDtmf('3');
 		tone1.stop(200);
 		tone2.stop(300);
 		setTimeout(() => {
