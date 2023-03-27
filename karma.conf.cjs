@@ -2,9 +2,9 @@ module.exports = function(config) {
 	config.set({
 		basePath: '',
 		frameworks: ['mocha', 'chai', 'webpack'],
-		files: ['src/DtmfPlayer.spec.ts'],
+		files: ['src/PhoneTonePlayer.spec.ts'],
 		preprocessors: {
-			'src/DtmfPlayer.spec.ts': ['webpack'],
+			'src/PhoneTonePlayer.spec.ts': ['webpack'],
 		},
 		webpack: {
 			devtool: 'inline-source-map',

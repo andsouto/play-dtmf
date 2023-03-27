@@ -1,19 +1,19 @@
 # play-dtmf
 
-This is a simple library that allows playing DTMF tones using Web Audio API.
+This is a simple library that allows playing DTMF and ringing tones using Web Audio API.
 It should work in any browser supporting [Web Audio API](http://caniuse.com/#feat=audio-api).
 
 ## Usage
 
 ```javascript
-import {DtmfPlayer} from 'play-dtmf';
+import {PhoneTonePlayer} from 'play-dtmf';
 const audioContext = new AudioContext();
-const dtmfPlayer = new DtmfPlayer(audioContext);
-const tone = dtmfPlayer.play('1');
+const phoneTonePlayer = new PhoneTonePlayer(audioContext);
+const tone = phoneTonePlayer.playDtmf('1');
 tone.stop(1000)
 ```
 
 ## TODO list
 
 *   Improve tests.
-*   Add documentation.
+*   Improve documentation.
