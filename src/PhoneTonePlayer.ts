@@ -5,13 +5,18 @@ export interface Tone {
 }
 
 export interface Config {
-	dtmf?: number;
-	ringing?: number;
+	gain: number;
 }
 
-export class PhoneTonePlayer {
-	constructor(private audioContext: AudioContext, private config: Config = {}) {}
+// Tone reference: https://www.etsi.org/deliver/etsi_tr/101000_101099/10104102/01.01.01_60/tr_10104102v010101p.pdf
 
+export class PhoneTonePlayer {
+	constructor(private audioContext: AudioContext, private config: Config = {gain: 0.1}) {}
+
+	/**
+	 * Reproduces a DTMF tone
+	 * @param key The DTMF tone that wants to be played
+	 */
 	playDtmf(key: Dtmf): Tone {
 		switch (key) {
 			case '1': return this.playDtmfTone(697, 1209);
@@ -33,44 +38,52 @@ export class PhoneTonePlayer {
 		}
 	}
 
+	/**
+	 * Reproduces a spanish ringing tone:
+	 *  Cadence: 1,5 - 3,0 s
+	 *  Period: 4,5 s
+	 *  Frequency: 425 Hz
+	 */
 	playRinging(): Tone {
-		// https://www.etsi.org/deliver/etsi_tr/101000_101099/10104102/01.01.01_60/tr_10104102v010101p.pdf
-		const gain = this.config.ringing ?? 0.1;
-		const gainNode = new GainNode(this.audioContext, {gain});
-		gainNode.connect(this.audioContext.destination);
-
-		const oscillator = this.createOscillator(425);
-		oscillator.connect(gainNode);
-		oscillator.start();
-
-		const play = () => {
-			gainNode.gain.setValueAtTime(0, this.audioContext.currentTime + 1.5);
-			gainNode.gain.setValueAtTime(gain, this.audioContext.currentTime + 4.5);
-		};
-		play();
-
-		const timer = setInterval(() => {
-			play();
-		}, 4500);
-
-		return {
-			stop(): void {
-				clearInterval(timer);
-				oscillator.stop();
-				gainNode.disconnect();
-			}
-		}
+		return this.playTone([1.5, 4.5], 425);
 	}
 
-	private createOscillator(freq: number): OscillatorNode {
-		return new OscillatorNode(this.audioContext, {
-			type: 'sine',
-			frequency: freq,
-		});
+	/**
+	 * Reproduces a spanish busy tone:
+	 *  Cadence: 0,2 - 0,2 s
+	 *  Period: 0,4 s
+	 *  Frequency: 425 Hz
+	 */
+	playBusyTone(): Tone {
+		return this.playTone([0.2, 0.2], 425);
+	}
+
+	private createOscillator(frequency: number, type: OscillatorType = 'sine'): OscillatorNode {
+		return new OscillatorNode(this.audioContext, {type, frequency});
+	}
+
+	private createLFO(onTime: number, offTime: number): AudioBufferSourceNode {
+		const period = onTime + offTime;
+		const channels = 1;
+		const sampleRate = this.audioContext.sampleRate;
+		const frameCount = sampleRate * period;
+		const arrayBuffer = this.audioContext.createBuffer(channels, frameCount, sampleRate);
+
+		var bufferData = arrayBuffer.getChannelData(0);
+		for (let i = 0; i < frameCount; i++) {
+			if ((i/sampleRate > 0 && i/sampleRate < onTime)){
+				bufferData[i] = 0.25;
+			}
+		}
+
+		const bufferSource = this.audioContext.createBufferSource();
+		bufferSource.buffer = arrayBuffer;
+    	bufferSource.loop = true;
+		return bufferSource;
 	}
 
 	private playDtmfTone(freq1: number, freq2: number): Tone {
-		const gainNode = new GainNode(this.audioContext, {gain: this.config.dtmf ?? 0.1})
+		const gainNode = new GainNode(this.audioContext, {gain: this.config.gain})
 		gainNode.connect(this.audioContext.destination);
 
 		const oscillator1 = this.createOscillator(freq1);
@@ -88,6 +101,30 @@ export class PhoneTonePlayer {
 				oscillator2.onended = () => gainNode.disconnect();
 				oscillator1.stop(audioContext.currentTime + when);
 				oscillator2.stop(audioContext.currentTime + when);
+			}
+		}
+	}
+
+	playTone(cadence: [number, number], frequency: number): Tone {
+		const gain = this.config.gain;
+		const gainNode = new GainNode(this.audioContext, {gain});
+		gainNode.connect(this.audioContext.destination);
+		gainNode.gain.value = 0;
+
+		const oscillator = this.createOscillator(frequency);
+		const lfo = this.createLFO(...cadence);
+
+		lfo.connect(gainNode.gain);
+		oscillator.connect(gainNode);
+
+		oscillator.start();
+		lfo.start();
+
+		return {
+			stop(): void {
+				lfo.stop();
+				oscillator.stop();
+				gainNode.disconnect();
 			}
 		}
 	}

@@ -28,6 +28,16 @@ if (stopRingingButton) {
 	stopRingingButton.onclick = stopRinging;
 }
 
+const busyToneButton = document.getElementById('busy-tone');
+if (busyToneButton) {
+	busyToneButton.onclick = playBusyTone;
+}
+
+const stopBusyToneButton = document.getElementById('stop-busy-tone');
+if (stopBusyToneButton) {
+	stopBusyToneButton.onclick = stopBusyTone;
+}
+
 // DTMF //
 //////////
 
@@ -49,4 +59,18 @@ function playRinging() {
 
 function stopRinging() {
 	ringingTone?.stop();
+}
+
+// Busy //
+/////////////
+
+let busyTone: Tone | undefined;
+function playBusyTone() {
+	console.warn('x')
+	const phoneTonePlayer = getPhoneTonePlayer();
+	busyTone = phoneTonePlayer.playBusyTone();
+}
+
+function stopBusyTone() {
+	busyTone?.stop();
 }
