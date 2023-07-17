@@ -11,7 +11,7 @@ export interface Config {
 // Tone reference: https://www.etsi.org/deliver/etsi_tr/101000_101099/10104102/01.01.01_60/tr_10104102v010101p.pdf
 
 export class PhoneTonePlayer {
-	constructor(private audioContext: AudioContext, private config: Config = {gain: 0.1}) {}
+	constructor(private audioContext: AudioContext, private config: Config = {gain: 0.25}) {}
 
 	/**
 	 * Reproduces a DTMF tone
@@ -72,7 +72,7 @@ export class PhoneTonePlayer {
 		var bufferData = arrayBuffer.getChannelData(0);
 		for (let i = 0; i < frameCount; i++) {
 			if ((i/sampleRate > 0 && i/sampleRate < onTime)){
-				bufferData[i] = 0.25;
+				bufferData[i] = this.config.gain;
 			}
 		}
 
@@ -106,8 +106,7 @@ export class PhoneTonePlayer {
 	}
 
 	playTone(cadence: [number, number], frequency: number): Tone {
-		const gain = this.config.gain;
-		const gainNode = new GainNode(this.audioContext, {gain});
+		const gainNode = new GainNode(this.audioContext);
 		gainNode.connect(this.audioContext.destination);
 		gainNode.gain.value = 0;
 
