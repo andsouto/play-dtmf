@@ -66,7 +66,6 @@ function stopRinging() {
 
 let busyTone: Tone | undefined;
 function playBusyTone() {
-	console.warn('x')
 	const phoneTonePlayer = getPhoneTonePlayer();
 	busyTone = phoneTonePlayer.playBusyTone();
 }

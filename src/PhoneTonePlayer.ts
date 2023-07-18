@@ -119,11 +119,12 @@ export class PhoneTonePlayer {
 		oscillator.start();
 		lfo.start();
 
+		const audioContext = this.audioContext;
 		return {
-			stop(): void {
-				lfo.stop();
-				oscillator.stop();
-				gainNode.disconnect();
+			stop(when = 0): void {
+				oscillator.onended = () => gainNode.disconnect();
+				lfo.stop(audioContext.currentTime + when);
+				oscillator.stop(audioContext.currentTime + when);
 			}
 		}
 	}
