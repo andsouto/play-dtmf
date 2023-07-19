@@ -105,7 +105,7 @@ export class PhoneTonePlayer {
 		}
 	}
 
-	playTone(cadence: [number, number], frequency: number): Tone {
+	private playTone(cadence: [number, number], frequency: number): Tone {
 		const gainNode = new GainNode(this.audioContext);
 		gainNode.connect(this.audioContext.destination);
 		gainNode.gain.value = 0;
